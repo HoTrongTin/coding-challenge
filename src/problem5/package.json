@@ -1,0 +1,42 @@
+{
+  "name": "resource-api",
+  "version": "1.0.0",
+  "description": "CRUD REST API — Clean Architecture, Express, TypeScript, Prisma, PostgreSQL",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "tsx prisma/seed.ts",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.0",
+    "@types/supertest": "^6.0.2",
+    "@vitest/coverage-v8": "^3.1.1",
+    "prisma": "^6.6.0",
+    "supertest": "^7.1.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
