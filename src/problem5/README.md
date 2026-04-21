@@ -1,12 +1,8 @@
 # Problem 5: Resource Management API
 
-A RESTful CRUD backend built with **Express.js**, **TypeScript**, **Prisma**, and **PostgreSQL**, following **Clean Architecture** principles.
-
----
-
 ## Table of Contents
 
-- [Requirements](#requirements)
+- [Overview](#overview)
 - [Quick Start](#quick-start)
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)
@@ -28,7 +24,20 @@ A RESTful CRUD backend built with **Express.js**, **TypeScript**, **Prisma**, an
 
 ---
 
-## Requirements
+## Overview
+
+This is a robust REST API application providing complete CRUD operations for resource management. It is designed following **Clean Architecture** principles to ensure high maintainability, strict separation of concerns, and ease of testing.
+
+### Tech Stack
+- **Framework:** Express.js
+- **ORM:** Prisma 6
+- **Database:** PostgreSQL
+- **Language:** TypeScript
+- **Validation:** Zod (Schema-first validation)
+- **Testing:** Vitest (Unit) + Supertest (Integration)
+- **Infrastructure:** Docker & Docker Compose
+
+### Prerequisites
 
 | Tool | Minimum version |
 |------|----------------|
@@ -94,9 +103,9 @@ The project follows **Clean Architecture**, enforcing a strict inward dependency
 src/problem5/
 ├── src/
 │   ├── domain/resource/          # Entity, repository interface, domain errors
-│   ├── application/resource/     # Use cases, DTOs, mapper
+│   ├── application/resource/     # Use cases, Zod schemas, DTOs, mapper
 │   ├── infrastructure/           # Prisma client, repository implementation
-│   ├── presentation/             # Express controllers, routes, Zod schemas, middlewares
+│   ├── presentation/             # Express controllers, routes, middlewares
 │   ├── shared/                   # Base errors, API response helpers
 │   ├── app.ts                    # Express app factory
 │   └── server.ts                 # Entry point + graceful shutdown
