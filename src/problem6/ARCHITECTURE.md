@@ -27,9 +27,7 @@
 
 ### 1.1 High-Level Diagram
 
-<table><tr><td bgcolor="white">
-<img src="./assets/high-level.png" alt="High-Level Architecture Diagram" />
-</td></tr></table>
+![High-Level Architecture Diagram](./assets/high-level.png)
 
 ### 1.2 Infrastructure Topology
 
@@ -69,9 +67,7 @@ The fix is two-layer validation: JWT + single-use action token. The token is iss
 - The token is consumed in one atomic step. If it is missing, expired, or belongs to a different user, the request is rejected with `403`.
 - The server always decides the score delta from `actionType`. The client never submits an amount.
 
-<table><tr><td bgcolor="white">
-<img src="./assets/security.png" alt="Security Token Validation Flow" />
-</td></tr></table>
+![Security Token Validation Flow](./assets/security.png)
 
 ---
 
@@ -83,9 +79,7 @@ We use a Redis Sorted Set to keep the leaderboard live and fast. Every score upd
 - Top-K reads return members in ranked order directly from the data structure.
 - Leaderboard reads never read directly from the Database.
 
-<table><tr><td bgcolor="white">
-<img src="./assets/caching-strategy.png" alt="Cache Strategy – Redis Sorted Set" />
-</td></tr></table>
+![Cache Strategy – Redis Sorted Set](./assets/caching-strategy.png)
 
 ---
 
@@ -115,9 +109,7 @@ Each server only manages WebSocket connections for its own clients. A score upda
 - After a successful score write, the handler sends one notification to the channel.
 - Every server receives the notification, reads the current top-10 (plus user metadata), and pushes it to all its own connected clients.
 
-<table><tr><td bgcolor="white">
-<img src="./assets/multi-instance.png" alt="Multi-Instance Cross-Server Broadcast" />
-</td></tr></table>
+![Multi-Instance Cross-Server Broadcast](./assets/multi-instance.png)
 
 ---
 
@@ -125,9 +117,7 @@ Each server only manages WebSocket connections for its own clients. A score upda
 
 A score update touches two places — the DB and Redis. If the DB write succeeds but the Redis write fails, they silently fall out of sync. The DB is the source of truth; Redis is a derived view.
 
-<table><tr><td bgcolor="white">
-<img src="./assets/score-consistency.png" alt="Score Consistency – Data Sync Flow" />
-</td></tr></table>
+![Score Consistency – Data Sync Flow](./assets/score-consistency.png)
 
 - A background **sync job** regularly re-checks Redis against the DB and fixes any differences.
 - When a server starts up, it loads all scores from the DB into Redis before accepting any traffic.
@@ -138,9 +128,7 @@ A score update touches two places — the DB and Redis. If the DB write succeeds
 
 Under heavy write load, each notification would trigger a leaderboard read and a push to all local clients — potentially hundreds of times per second. A 200ms debounce per server prevents this: while a timer is running, extra notifications are dropped. When it fires, the server reads the leaderboard once and sends one push to all local clients.
 
-<table><tr><td bgcolor="white">
-<img src="./assets/broadcast-throttle.png" alt="Broadcast Throttling – Debounce Logic" />
-</td></tr></table>
+![Broadcast Throttling – Debounce Logic](./assets/broadcast-throttle.png)
 
 ---
 
@@ -162,9 +150,7 @@ Under heavy write load, each notification would trigger a leaderboard read and a
 
 The diagram below shows the full lifecycle of a score update. It also shows how an independent read request is served.
 
-<table><tr><td bgcolor="white">
-<img src="./assets/sequence-diagram.png" alt="Full Score Update Sequence Diagram" />
-</td></tr></table>
+![Full Score Update Sequence Diagram](./assets/sequence-diagram.png)
 
 **Flow Summary:**
 
