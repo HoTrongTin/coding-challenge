@@ -1,12 +1,13 @@
 # Problem 4: Three Ways to Sum to N
 
-Three implementations for summing all integers between `n` and `0`.
+Three implementations for summing all integers between `n` and `1` (or `-1` if `n` is negative).
 
 ## Assumption
 
 - `n` is an integer (positive, negative, or zero).
-- **If `n >= 0`:** sum all integers from `0` to `n` → `0 + 1 + 2 + ... + n`
-- **If `n < 0`:** sum all integers from `n` to `0` → `n + (n+1) + ... + 0`
+- **If `n > 0`:** sum all integers from `1` to `n` → `1 + 2 + ... + n`
+- **If `n < 0`:** sum all integers from `n` to `-1` → `n + (n+1) + ... + -1`
+- **If `n === 0`:** returns `0`
 
 ---
 
@@ -17,10 +18,10 @@ Three implementations for summing all integers between `n` and `0`.
 ```typescript
 function sumToNA(n: number): number {
   let total = 0;
-  if (n >= 0) {
-    for (let i = 0; i <= n; i++) total += i;
-  } else {
-    for (let i = n; i <= 0; i++) total += i;
+  if (n > 0) {
+    for (let i = 1; i <= n; i++) total += i;
+  } else if (n < 0) {
+    for (let i = n; i <= -1; i++) total += i;
   }
   return total;
 }
@@ -65,8 +66,8 @@ function sumToNC(n: number): number {
 | **Space Complexity** | `O(1)` — no additional memory allocated |
 
 **Derivation:**
-- Positive case: `sum(0..n) = n*(n+1)/2` (Gauss's formula)
-- Negative case: `sum(n..0) = n*(|n|+1)/2` (same structure, sign carried by `n`)
+- Positive case: `sum(1..n) = n*(n+1)/2` (Gauss's formula)
+- Negative case: `sum(n..-1) = n*(|n|+1)/2` (same structure, sign carried by `n`)
 - Unified formula: `n * (|n| + 1) / 2`
 
 ---
@@ -75,11 +76,11 @@ function sumToNC(n: number): number {
 
 | Input `n` | Range Summed | Expected Output |
 | :---: | :---: | :---: |
-| `5` | `0 + 1 + 2 + 3 + 4 + 5` | `15` |
-| `1` | `0 + 1` | `1` |
+| `5` | `1 + 2 + 3 + 4 + 5` | `15` |
+| `1` | `1` | `1` |
 | `0` | `0` | `0` |
-| `-1` | `-1 + 0` | `-1` |
-| `-3` | `-3 + (-2) + (-1) + 0` | `-6` |
+| `-1` | `-1` | `-1` |
+| `-3` | `-3 + (-2) + (-1)` | `-6` |
 
 ---
 
