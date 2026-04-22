@@ -406,4 +406,4 @@ npm run test:coverage      # Coverage report (output: coverage/)
 
 Watch the API demonstration video below:
 
-<video src="./assets/demo-api.mov" controls="controls" width="100%"></video>
+[▶️ Click here to view/download the API Demonstration Video](./assets/demo-api.mov)
