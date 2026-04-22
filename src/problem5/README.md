@@ -399,3 +399,11 @@ npm run test:coverage      # Coverage report (output: coverage/)
 3. **Resource domain** — the entity uses generic fields (`name`, `type`, `description`, `status`, `quantity`, `metadata`) that can represent any kind of managed resource.
 4. **Pagination** — the list endpoint defaults to page 1 / limit 10 and caps the limit at 100 to protect against large payload abuse.
 5. **Test isolation** — integration tests run against a separate `TEST_DATABASE_URL` and truncate all data `beforeEach` to guarantee clean state.
+
+---
+
+## Demo
+
+Watch the API demonstration video below:
+
+<video src="./assets/demo-api.mov" controls="controls" width="100%"></video>
